@@ -10,15 +10,14 @@ import java.util.List;
 @Service
 public class LibroService {
 
-    @Autowired
     private final LibroRepository libroRepository;
 
     public LibroService(LibroRepository libroRepository) {
         this.libroRepository = libroRepository;
     }
 
-    public List<Libro> getLibros() {
-        return libroRepository.getLibros();
+    public List<Libro> getBooks() {
+        return libroRepository.getBooks();
     }
 
     public Libro saveBook(Libro libro) {
