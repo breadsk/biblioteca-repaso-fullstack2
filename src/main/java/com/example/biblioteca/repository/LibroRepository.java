@@ -17,7 +17,7 @@ public class LibroRepository {
     }
 
     // Busca el libro por su id
-    public Libro buscarPorId(int id) {
+    public Libro searchById(int id) {
         for (Libro libro : listaLibros) {
             if (libro.getId() == id) {
                 return libro;
@@ -37,12 +37,12 @@ public class LibroRepository {
     }
 
     // Guardar libro
-    public Libro guardar(Libro lib) {
+    public Libro saveBook(Libro lib) {
         listaLibros.add(lib);
         return lib;
     }
 
-    public Libro actualizar(Libro lib) {
+    public Libro updateBook(Libro lib) {
 
         int idPosicion = -1; // Usar -1 para indicar "no encontrado"
 
