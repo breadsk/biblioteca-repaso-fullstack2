@@ -41,27 +41,33 @@ public class LibroRepository {
     }
 
     public Libro actualizar(Libro lib) {
-        int id = 0;
-        int idPosicion = 0;
+
+        int idPosicion = -1; // Usar -1 para indicar "no encontrado"
 
         for (int i = 0; i < listaLibros.size(); i++) {
             if (listaLibros.get(i).getId() == lib.getId()) {
-                id = lib.getId();
                 idPosicion = i;
+                break; // IMPORTANTE: salir cuando lo encuentres
             }
         }
 
-        Libro libro1 = new Libro();
-        libro1.setId(idPosicion);
-        libro1.setTitulo(lib.getTitulo());
-        libro1.setAutor(lib.getAutor());
-        libro1.setFechaPublicacion(lib.getFechaPublicacion());
-        libro1.setEditorial(lib.getEditorial());
-        libro1.setIsbn(lib.getIsbn());
+        if (idPosicion == -1) {
+            return null; // Libro no encontrado
+        }
 
-        listaLibros.set(idPosicion, libro1);
+        // Actualizar el libro existente (NO rear uno nuevo)
+        // ¿Por qué no necesitas listaLibros.set()?
+        // Porque NO estás cambiando la referencia en la lista,
+        // solo estás modificando el contenido del objeto al que apunta esa referencia.
+        Libro libroExistente = listaLibros.get(idPosicion);
+        libroExistente.setId(idPosicion);
+        libroExistente.setTitulo(lib.getTitulo());
+        libroExistente.setAutor(lib.getAutor());
+        libroExistente.setFechaPublicacion(lib.getFechaPublicacion());
+        libroExistente.setEditorial(lib.getEditorial());
+        libroExistente.setIsbn(lib.getIsbn());
 
-        return libro1;
+        return libroExistente;
     }
 
     public void eliminar(int id) {
@@ -74,6 +80,20 @@ public class LibroRepository {
 
         // Alternativa 2
         int idPosicion = 0;
+        for (int i = 0; i < listaLibros.size(); i++) {
+            if (listaLibros.get(i).getId() == id) {
+                idPosicion = i;
+                break;
+            }
+        }
+
+        if (idPosicion > 0) {
+            listaLibros.remove(idPosicion);
+        }
+
+        // otra alternativa
+        listaLibros.removeIf(x -> x.getId() == id);
 
     }
+
 }
