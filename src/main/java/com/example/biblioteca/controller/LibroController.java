@@ -2,18 +2,15 @@ package com.example.biblioteca.controller;
 
 import com.example.biblioteca.model.Libro;
 import com.example.biblioteca.service.LibroService;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/api/v1/libros")
+@Tag(name = "Inventix", description = "Operaciones relacionadas con ecommerce")
 public class LibroController {
 
     private final LibroService libroService;
@@ -23,13 +20,29 @@ public class LibroController {
     }
 
     @GetMapping
+    @Operation(summary = "Obtener todos los productos", description = "Obtiene una lista de todos los productos")
     public List<Libro> getBooks() {
         return libroService.getBooks();
+    }
+
+    @GetMapping("{id}")
+    public Libro getBookById(@PathVariable int id) {
+        return libroService.getLibroById(id);
     }
 
     @PostMapping
     public Libro saveBook(@RequestBody Libro libro) {
         return libroService.saveBook(libro);
+    }
+
+    @PutMapping("{id}")
+    public Libro updateBookById(@PathVariable int id, @RequestBody Libro libro) {
+        return libroService.updateLibro(libro);
+    }
+
+    @DeleteMapping
+    public String deleteBookById(@PathVariable int id) {
+        return libroService.deleteLibro(id);
     }
 
 }

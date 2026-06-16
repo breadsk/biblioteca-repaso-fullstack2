@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.ArrayList;
 
+@Repository
 public class LibroRepository {
 
     // Lista que guardará todos los libros
